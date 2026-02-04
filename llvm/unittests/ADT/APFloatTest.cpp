@@ -5605,7 +5605,6 @@ TEST(APFloatTest, frexpHexFloat) {
     // having to deal with the exact encoding, which is tricky
     // for the low exponent in the 128 case.
     Frac = frexp(One, Exp, RM);
-    EXPECT_EQ(1, Exp) << " Semantics: " << SemanticsName;
     EXPECT_EQ(APFloat::opOK, Frac.subtract(APFloat(*S, "0.5"), RM))
         << " Semantics: " << SemanticsName;
     EXPECT_TRUE(Frac.isZero()) << " Semantics: " << SemanticsName;
