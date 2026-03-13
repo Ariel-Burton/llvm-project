@@ -1174,6 +1174,9 @@ void ModuleBitcodeWriter::writeTypeTable() {
     case Type::X86_FP80TyID:  Code = bitc::TYPE_CODE_X86_FP80;  break;
     case Type::FP128TyID:     Code = bitc::TYPE_CODE_FP128;     break;
     case Type::PPC_FP128TyID: Code = bitc::TYPE_CODE_PPC_FP128; break;
+    case Type::Hex_FP32TyID:  Code = bitc::TYPE_CODE_HEX_FP32;  break;
+    case Type::Hex_FP64TyID:  Code = bitc::TYPE_CODE_HEX_FP64;  break;
+    case Type::Hex_FP128TyID: Code = bitc::TYPE_CODE_HEX_FP128; break;
     case Type::LabelTyID:     Code = bitc::TYPE_CODE_LABEL;     break;
     case Type::MetadataTyID:
       Code = bitc::TYPE_CODE_METADATA;
@@ -2897,7 +2900,7 @@ void ModuleBitcodeWriter::writeConstants(unsigned FirstVal, unsigned LastVal,
       Code = bitc::CST_CODE_FLOAT;
       Type *Ty = CFP->getType()->getScalarType();
       if (Ty->isHalfTy() || Ty->isBFloatTy() || Ty->isFloatTy() ||
-          Ty->isDoubleTy()) {
+          Ty->isDoubleTy() || Ty->isHex_FP32Ty() || Ty->isHex_FP64Ty()) {
         Record.push_back(CFP->getValueAPF().bitcastToAPInt().getZExtValue());
       } else if (Ty->isX86_FP80Ty()) {
         // api needed to prevent premature destruction
@@ -2906,7 +2909,7 @@ void ModuleBitcodeWriter::writeConstants(unsigned FirstVal, unsigned LastVal,
         const uint64_t *p = api.getRawData();
         Record.push_back((p[1] << 48) | (p[0] >> 16));
         Record.push_back(p[0] & 0xffffLL);
-      } else if (Ty->isFP128Ty() || Ty->isPPC_FP128Ty()) {
+      } else if (Ty->isFP128Ty() || Ty->isPPC_FP128Ty() || Ty->isHex_FP128Ty()) {
         APInt api = CFP->getValueAPF().bitcastToAPInt();
         const uint64_t *p = api.getRawData();
         Record.push_back(p[0]);

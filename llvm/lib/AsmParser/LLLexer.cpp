@@ -919,6 +919,9 @@ lltok::Kind LLLexer::LexIdentifier() {
   TYPEKEYWORD("x86_fp80",  Type::getX86_FP80Ty(Context));
   TYPEKEYWORD("fp128",     Type::getFP128Ty(Context));
   TYPEKEYWORD("ppc_fp128", Type::getPPC_FP128Ty(Context));
+  TYPEKEYWORD("hex_fp32",  Type::getHex_FP32Ty(Context));
+  TYPEKEYWORD("hex_fp64",  Type::getHex_FP64Ty(Context));
+  TYPEKEYWORD("hex_fp128", Type::getHex_FP128Ty(Context));
   TYPEKEYWORD("label",     Type::getLabelTy(Context));
   TYPEKEYWORD("metadata",  Type::getMetadataTy(Context));
   TYPEKEYWORD("x86_amx",   Type::getX86_AMXTy(Context));
@@ -1105,12 +1108,13 @@ lltok::Kind LLLexer::LexIdentifier() {
 ///    HexPPC128Constant 0xM[0-9A-Fa-f]+
 ///    HexHalfConstant   0xH[0-9A-Fa-f]+
 ///    HexBFloatConstant 0xR[0-9A-Fa-f]+
+///    (IBM) HexFloat    0xS[0-9A-Fa-f]+
 lltok::Kind LLLexer::Lex0x() {
   CurPtr = TokStart + 2;
 
   char Kind;
   if ((CurPtr[0] >= 'K' && CurPtr[0] <= 'M') || CurPtr[0] == 'H' ||
-      CurPtr[0] == 'R') {
+      CurPtr[0] == 'R' || CurPtr[0] == 'S') {
     Kind = *CurPtr++;
   } else {
     Kind = 'J';
@@ -1169,6 +1173,33 @@ lltok::Kind LLLexer::Lex0x() {
       return lltok::Error;
     }
     APFloatVal = APFloat(APFloat::BFloat(), APInt(16, Val));
+    return lltok::APFloat;
+  }
+  case 'S': {
+    // HexFloat
+    const fltSemantics *semantics;
+    auto start_of_value_str = TokStart + 3;
+    size_t length_of_value_str = CurPtr - start_of_value_str;
+    unsigned nbits;
+    switch (length_of_value_str) {
+    default:
+      llvm_unreachable("Unexpected length for HexFloat constant");
+      return lltok::Error;
+    case 8:
+      semantics = &APFloat::HexFP32();
+      nbits = 32;
+      break;
+    case 16:
+      semantics = &APFloat::HexFP64();
+      nbits = 64;
+      break;
+    case 32:
+      semantics = &APFloat::HexFP128();
+      nbits = 128;
+      break;
+    }
+    StringRef value_str(start_of_value_str, length_of_value_str);
+    APFloatVal = APFloat(*semantics, APInt(nbits, value_str,16));
     return lltok::APFloat;
   }
   }

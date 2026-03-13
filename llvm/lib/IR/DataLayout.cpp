@@ -883,6 +883,9 @@ Align DataLayout::getAlignment(Type *Ty, bool abi_or_pref) const {
   case Type::BFloatTyID:
   case Type::FloatTyID:
   case Type::DoubleTyID:
+  case Type::Hex_FP32TyID:
+  case Type::Hex_FP64TyID:
+  case Type::Hex_FP128TyID:
   // PPC_FP128TyID and FP128TyID have different data contents, but the
   // same size and alignment, so they look the same here.
   case Type::PPC_FP128TyID:

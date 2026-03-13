@@ -61,6 +61,9 @@ public:
     X86_FP80TyID,  ///< 80-bit floating point type (X87)
     FP128TyID,     ///< 128-bit floating point type (112-bit significand)
     PPC_FP128TyID, ///< 128-bit floating point type (two 64-bits, PowerPC)
+    Hex_FP32TyID,  ///< 32-bit floating point type (IBM Hexfloat)
+    Hex_FP64TyID,  ///< 64-bit floating point type (IBM Hexfloat)
+    Hex_FP128TyID, ///< 128-bit floating point type (IBM Hexfloat)
     VoidTyID,      ///< type with no size
     LabelTyID,     ///< Labels
     MetadataTyID,  ///< Metadata
@@ -166,6 +169,15 @@ public:
   /// Return true if this is powerpc long double.
   bool isPPC_FP128Ty() const { return getTypeID() == PPC_FP128TyID; }
 
+  /// Return true if this is a 32-bit Hexfloat
+  bool isHex_FP32Ty() const { return getTypeID() == Hex_FP32TyID; }
+
+  /// Return true if this is a 64-bit Hexfloat
+  bool isHex_FP64Ty() const { return getTypeID() == Hex_FP64TyID; }
+
+  /// Return true if this is a 128-bit Hexfloat
+  bool isHex_FP128Ty() const { return getTypeID() == Hex_FP128TyID; }
+
   /// Return true if this is a well-behaved IEEE-like type, which has a IEEE
   /// compatible layout, and does not have non-IEEE values, such as x86_fp80's
   /// unnormal values.
@@ -182,10 +194,15 @@ public:
     }
   }
 
+  /// Return true if this is a Hexfloat type
+  bool isHexFPTy () const {
+    return isHex_FP32Ty() || isHex_FP64Ty() || isHex_FP128Ty();
+  }
+
   /// Return true if this is one of the floating-point types
   bool isFloatingPointTy() const {
     return isIEEELikeFPTy() || getTypeID() == X86_FP80TyID ||
-           getTypeID() == PPC_FP128TyID;
+           getTypeID() == PPC_FP128TyID || isHexFPTy();
   }
 
   /// Returns true if this is a floating-point type that is an unevaluated sum
@@ -468,6 +485,9 @@ public:
   LLVM_ABI static Type *getX86_FP80Ty(LLVMContext &C);
   LLVM_ABI static Type *getFP128Ty(LLVMContext &C);
   LLVM_ABI static Type *getPPC_FP128Ty(LLVMContext &C);
+  LLVM_ABI static Type *getHex_FP32Ty(LLVMContext &C);
+  LLVM_ABI static Type *getHex_FP64Ty(LLVMContext &C);
+  LLVM_ABI static Type *getHex_FP128Ty(LLVMContext &C);
   LLVM_ABI static Type *getX86_AMXTy(LLVMContext &C);
   LLVM_ABI static Type *getTokenTy(LLVMContext &C);
   LLVM_ABI static ByteType *getByteNTy(LLVMContext &C, unsigned N);

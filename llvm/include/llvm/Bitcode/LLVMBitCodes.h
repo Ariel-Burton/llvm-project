@@ -179,6 +179,10 @@ enum TypeCodes {
   TYPE_CODE_TARGET_TYPE = 26, // TARGET_TYPE
 
   TYPE_CODE_BYTE = 27, // BYTE: [width]
+
+  TYPE_CODE_HEX_FP32 = 28, // HexFloat 32
+  TYPE_CODE_HEX_FP64 = 29, // HexFloat 64
+  TYPE_CODE_HEX_FP128 = 30, // HexFloat 128
 };
 
 enum OperandBundleTagCode {

@@ -41,6 +41,7 @@ class VTInt<int size>
 
 class VTFP<int size>
     : ValueType<size> {
+  bit isHexFP = false;
   let isFP = true;
 }
 
@@ -91,6 +92,12 @@ def f64     : VTFP<64>;  // 64-bit floating point value
 def f80     : VTFP<80>;  // 80-bit floating point value
 def f128    : VTFP<128>; // 128-bit floating point value
 def ppcf128 : VTFP<128>; // PPC 128-bit floating point value
+
+let isHexFP = true in {
+  def hex_fp32  : VTFP<32>;  // SystemZ 32-bit hex float
+  def hex_fp64  : VTFP<64>;  // SystemZ 64-bit hex float
+  def hex_fp128 : VTFP<128>;  // SystemZ 128-bit hex float
+}
 
 def v1i1    : VTVec<1,    i1>; //    1 x i1 vector value
 def v2i1    : VTVec<2,    i1>; //    2 x i1 vector value

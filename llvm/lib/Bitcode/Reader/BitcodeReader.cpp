@@ -2638,6 +2638,15 @@ Error BitcodeReader::parseTypeTableBody() {
     case bitc::TYPE_CODE_PPC_FP128: // PPC_FP128
       ResultTy = Type::getPPC_FP128Ty(Context);
       break;
+    case bitc::TYPE_CODE_HEX_FP32: // HEX_FP32
+      ResultTy = Type::getHex_FP32Ty(Context);
+      break;
+    case bitc::TYPE_CODE_HEX_FP64: // HEX_FP64
+      ResultTy = Type::getHex_FP64Ty(Context);
+      break;
+    case bitc::TYPE_CODE_HEX_FP128: // HEX_FP128
+      ResultTy = Type::getHex_FP128Ty(Context);
+      break;
     case bitc::TYPE_CODE_LABEL:     // LABEL
       ResultTy = Type::getLabelTy(Context);
       break;
@@ -3408,6 +3417,15 @@ Error BitcodeReader::parseConstants() {
       else if (ScalarTy->isPPC_FP128Ty())
         V = ConstantFP::get(
             CurTy, APFloat(APFloat::PPCDoubleDouble(), APInt(128, Record)));
+      else if (ScalarTy->isHex_FP32Ty())
+        V = ConstantFP::get(
+            CurTy, APFloat(APFloat::HexFP32(), APInt(32, Record)));
+      else if (ScalarTy->isHex_FP64Ty())
+        V = ConstantFP::get(
+            CurTy, APFloat(APFloat::HexFP64(), APInt(64, Record)));
+      else if (ScalarTy->isHex_FP128Ty())
+        V = ConstantFP::get(
+            CurTy, APFloat(APFloat::HexFP128(), APInt(128, Record)));
       else
         V = PoisonValue::get(CurTy);
       break;

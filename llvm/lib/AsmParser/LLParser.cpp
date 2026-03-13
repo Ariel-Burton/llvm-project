@@ -6750,6 +6750,16 @@ bool LLParser::convertValIDToValue(Type *Ty, ValID &ID, Value *&V,
       else if (Ty->isFloatTy())
         ID.APFloatVal.convert(APFloat::IEEEsingle(), APFloat::rmNearestTiesToEven,
                               &Ignored);
+      else if (Ty->isHex_FP32Ty())
+        ID.APFloatVal.convert(APFloat::HexFP32(), APFloat::rmNearestTiesToEven,
+                              &Ignored);
+      else if (Ty->isHex_FP64Ty())
+        ID.APFloatVal.convert(APFloat::HexFP64(), APFloat::rmNearestTiesToEven,
+                              &Ignored);
+      else if (Ty->isHex_FP128Ty())
+        ID.APFloatVal.convert(APFloat::HexFP128(), APFloat::rmNearestTiesToEven,
+                              &Ignored);
+
       if (IsSNAN) {
         // The convert call above may quiet an SNaN, so manufacture another
         // SNaN. The bitcast works because the payload (significand) parameter

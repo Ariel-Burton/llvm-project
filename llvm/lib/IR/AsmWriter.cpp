@@ -663,6 +663,9 @@ void TypePrinting::print(Type *Ty, raw_ostream &OS) {
   case Type::X86_FP80TyID:  OS << "x86_fp80"; return;
   case Type::FP128TyID:     OS << "fp128"; return;
   case Type::PPC_FP128TyID: OS << "ppc_fp128"; return;
+  case Type::Hex_FP32TyID:  OS << "hex_fp32"; return;
+  case Type::Hex_FP64TyID:  OS << "hex_fp64"; return;
+  case Type::Hex_FP128TyID: OS << "hex_fp128"; return;
   case Type::LabelTyID:     OS << "label"; return;
   case Type::MetadataTyID:
     OS << "metadata";
@@ -1594,7 +1597,7 @@ static void writeAPFloatInternal(raw_ostream &Out, const APFloat &APF) {
     return;
   }
 
-  // Either half, bfloat or some form of long double.
+  // Either half, bfloat, some form of long double, or a HexFloat.
   // These appear as a magic letter identifying the type, then a
   // fixed number of hex digits.
   Out << "0x";
@@ -1624,6 +1627,20 @@ static void writeAPFloatInternal(raw_ostream &Out, const APFloat &APF) {
   } else if (&APF.getSemantics() == &APFloat::BFloat()) {
     Out << 'R';
     Out << format_hex_no_prefix(API.getZExtValue(), 4,
+                                /*Upper=*/true);
+  } else if (&APF.getSemantics() == &APFloat::HexFP32()) {
+    Out << 'S';
+    Out << format_hex_no_prefix(API.getZExtValue(), 8,
+                                /*Upper=*/true);
+  } else if (&APF.getSemantics() == &APFloat::HexFP64()) {
+    Out << 'S';
+    Out << format_hex_no_prefix(API.getZExtValue(), 16,
+                                /*Upper=*/true);
+  } else if (&APF.getSemantics() == &APFloat::HexFP128()) {
+    Out << 'S';
+    Out << format_hex_no_prefix(API.getHiBits(64).getZExtValue(), 16,
+                                /*Upper=*/true);
+    Out << format_hex_no_prefix(API.getLoBits(64).getZExtValue(), 16,
                                 /*Upper=*/true);
   } else
     llvm_unreachable("Unsupported floating point type");

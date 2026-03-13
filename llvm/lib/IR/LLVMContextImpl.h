@@ -1756,6 +1756,7 @@ public:
   Type VoidTy, LabelTy, HalfTy, BFloatTy, FloatTy, DoubleTy, MetadataTy,
       TokenTy;
   Type X86_FP80Ty, FP128Ty, PPC_FP128Ty, X86_AMXTy;
+  Type Hex_FP32Ty, Hex_FP64Ty, Hex_FP128Ty;
   IntegerType Int1Ty, Int8Ty, Int16Ty, Int32Ty, Int64Ty, Int128Ty;
   ByteType Byte1Ty, Byte8Ty, Byte16Ty, Byte32Ty, Byte64Ty, Byte128Ty;
 

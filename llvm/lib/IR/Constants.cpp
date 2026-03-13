@@ -84,7 +84,7 @@ bool Constant::isNullValue() const {
   if (const ConstantFP *CFP = dyn_cast<ConstantFP>(this))
     // ppc_fp128 determine isZero using high order double only
     // Should check the bitwise value to make sure all bits are zero.
-    return CFP->isExactlyValue(+0.0);
+    return CFP->isExactlyValue(APFloat::getZero(CFP->getValue().getSemantics()));
 
   // constant zero is zero for aggregates, cpnull is null for pointers, none for
   // tokens.
@@ -1829,6 +1829,24 @@ bool ConstantFP::isValueValidForType(Type *Ty, const APFloat& Val) {
            &Val2.getSemantics() == &APFloat::IEEEsingle() ||
            &Val2.getSemantics() == &APFloat::IEEEdouble() ||
            &Val2.getSemantics() == &APFloat::PPCDoubleDouble();
+  case Type::Hex_FP32TyID:
+    if (&Val2.getSemantics() == &APFloat::HexFP32())
+      return true;
+    Val2.convert(APFloat::HexFP32(), APFloat::rmNearestTiesToEven, &losesInfo);
+    return !losesInfo;;
+  case Type::Hex_FP64TyID:
+    if ( &Val2.getSemantics() == &APFloat::HexFP32() ||
+         &Val2.getSemantics() == &APFloat::HexFP64())
+      return true;
+    Val2.convert(APFloat::HexFP64(), APFloat::rmNearestTiesToEven, &losesInfo);
+    return !losesInfo;
+  case Type::Hex_FP128TyID:
+    if (&Val2.getSemantics() == &APFloat::HexFP32() ||
+        &Val2.getSemantics() == &APFloat::HexFP64() ||
+        &Val2.getSemantics() == &APFloat::HexFP128())
+      return true;
+    Val2.convert(APFloat::HexFP128(), APFloat::rmNearestTiesToEven, &losesInfo);
+    return !losesInfo;
   }
 }
 

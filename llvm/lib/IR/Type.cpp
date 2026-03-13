@@ -45,6 +45,9 @@ Type *Type::getPrimitiveType(LLVMContext &C, TypeID IDNumber) {
   case X86_FP80TyID  : return getX86_FP80Ty(C);
   case FP128TyID     : return getFP128Ty(C);
   case PPC_FP128TyID : return getPPC_FP128Ty(C);
+  case Hex_FP32TyID  : return getHex_FP32Ty(C);
+  case Hex_FP64TyID  : return getHex_FP64Ty(C);
+  case Hex_FP128TyID : return getHex_FP128Ty(C);
   case LabelTyID     : return getLabelTy(C);
   case MetadataTyID  : return getMetadataTy(C);
   case X86_AMXTyID   : return getX86_AMXTy(C);
@@ -116,6 +119,9 @@ const fltSemantics &Type::getFltSemantics() const {
   case X86_FP80TyID: return APFloat::x87DoubleExtended();
   case FP128TyID: return APFloat::IEEEquad();
   case PPC_FP128TyID: return APFloat::PPCDoubleDouble();
+  case Hex_FP32TyID  : return APFloat::HexFP32();
+  case Hex_FP64TyID  : return APFloat::HexFP64();
+  case Hex_FP128TyID : return APFloat::HexFP128();
   default: llvm_unreachable("Invalid floating type");
   }
 }
@@ -140,9 +146,15 @@ Type *Type::getFloatingPointTy(LLVMContext &C, const fltSemantics &S) {
     Ty = Type::getX86_FP80Ty(C);
   else if (&S == &APFloat::IEEEquad())
     Ty = Type::getFP128Ty(C);
-  else {
-    assert(&S == &APFloat::PPCDoubleDouble() && "Unknown FP format");
+  else if (&S == &APFloat::PPCDoubleDouble())
     Ty = Type::getPPC_FP128Ty(C);
+  else if (&S == &APFloat::HexFP32())
+    Ty = Type::getHex_FP32Ty(C);
+  else if (&S == &APFloat::HexFP64())
+    Ty = Type::getHex_FP64Ty(C);
+  else {
+    assert(&S == &APFloat::HexFP128() && "Unknown FP format");
+    Ty = Type::getHex_FP128Ty(C);
   }
   return Ty;
 }
@@ -214,6 +226,12 @@ TypeSize Type::getPrimitiveSizeInBits() const {
     return TypeSize::getFixed(128);
   case Type::PPC_FP128TyID:
     return TypeSize::getFixed(128);
+  case Type::Hex_FP32TyID:
+    return TypeSize::getFixed(32);
+  case Type::Hex_FP64TyID:
+    return TypeSize::getFixed(64);
+  case Type::Hex_FP128TyID:
+    return TypeSize::getFixed(128);
   case Type::X86_AMXTyID:
     return TypeSize::getFixed(8192);
   case Type::ByteTyID:
@@ -248,6 +266,9 @@ int Type::getFPMantissaWidth() const {
   if (getTypeID() == DoubleTyID) return 53;
   if (getTypeID() == X86_FP80TyID) return 64;
   if (getTypeID() == FP128TyID) return 113;
+  if (getTypeID() == Hex_FP32TyID) return 24;
+  if (getTypeID() == Hex_FP64TyID) return 56;
+  if (getTypeID() == Hex_FP128TyID) return 112;
   assert(getTypeID() == PPC_FP128TyID && "unknown fp type");
   return -1;
 }
@@ -294,6 +315,9 @@ Type *Type::getTokenTy(LLVMContext &C) { return &C.pImpl->TokenTy; }
 Type *Type::getX86_FP80Ty(LLVMContext &C) { return &C.pImpl->X86_FP80Ty; }
 Type *Type::getFP128Ty(LLVMContext &C) { return &C.pImpl->FP128Ty; }
 Type *Type::getPPC_FP128Ty(LLVMContext &C) { return &C.pImpl->PPC_FP128Ty; }
+Type *Type::getHex_FP32Ty(LLVMContext &C) { return &C.pImpl->Hex_FP32Ty; }
+Type *Type::getHex_FP64Ty(LLVMContext &C) { return &C.pImpl->Hex_FP64Ty; }
+Type *Type::getHex_FP128Ty(LLVMContext &C) { return &C.pImpl->Hex_FP128Ty; }
 Type *Type::getX86_AMXTy(LLVMContext &C) { return &C.pImpl->X86_AMXTy; }
 
 ByteType *Type::getByte1Ty(LLVMContext &C) { return &C.pImpl->Byte1Ty; }

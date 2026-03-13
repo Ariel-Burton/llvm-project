@@ -617,6 +617,12 @@ LLVMTypeKind LLVMGetTypeKind(LLVMTypeRef Ty) {
     return LLVMFP128TypeKind;
   case Type::PPC_FP128TyID:
     return LLVMPPC_FP128TypeKind;
+  case Type::Hex_FP32TyID:
+    return LLVMHex_FP32TypeKind;
+  case Type::Hex_FP64TyID:
+    return LLVMHex_FP64TypeKind;
+  case Type::Hex_FP128TyID:
+    return LLVMHex_FP128TypeKind;
   case Type::LabelTyID:
     return LLVMLabelTypeKind;
   case Type::MetadataTyID:
@@ -756,6 +762,15 @@ LLVMTypeRef LLVMFP128TypeInContext(LLVMContextRef C) {
 }
 LLVMTypeRef LLVMPPCFP128TypeInContext(LLVMContextRef C) {
   return (LLVMTypeRef) Type::getPPC_FP128Ty(*unwrap(C));
+}
+LLVMTypeRef LLVMHexFP32TypeInContext(LLVMContextRef C) {
+  return (LLVMTypeRef) Type::getHex_FP32Ty(*unwrap(C));
+}
+LLVMTypeRef LLVMHexFP64TypeInContext(LLVMContextRef C) {
+  return (LLVMTypeRef) Type::getHex_FP64Ty(*unwrap(C));
+}
+LLVMTypeRef LLVMHexFP128TypeInContext(LLVMContextRef C) {
+  return (LLVMTypeRef) Type::getHex_FP128Ty(*unwrap(C));
 }
 LLVMTypeRef LLVMX86AMXTypeInContext(LLVMContextRef C) {
   return (LLVMTypeRef) Type::getX86_AMXTy(*unwrap(C));

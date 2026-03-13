@@ -172,6 +172,9 @@ typedef enum {
   LLVMX86_AMXTypeKind = 19,        /**< X86 AMX */
   LLVMTargetExtTypeKind = 20,      /**< Target extension type */
   LLVMByteTypeKind = 21,           /**< Arbitrary bit width bytes */
+  LLVMHex_FP32TypeKind = 22,   /**< 32 bit Hexfloat floating point type (IBM) */
+  LLVMHex_FP64TypeKind = 23,   /**< 64 bit Hexfloat floating point type (IBM) */
+  LLVMHex_FP128TypeKind = 24,  /**< 128 bit Hexfloat floating point type (IBM) */
 } LLVMTypeKind;
 
 typedef enum {
@@ -1525,6 +1528,21 @@ LLVM_C_ABI LLVMTypeRef LLVMFP128TypeInContext(LLVMContextRef C);
  * Obtain a 128-bit floating point type (two 64-bits) from a context.
  */
 LLVM_C_ABI LLVMTypeRef LLVMPPCFP128TypeInContext(LLVMContextRef C);
+
+/**
+ * Obtain a 32 Hex float floating point type (IBM) from a context.
+ */
+LLVM_C_ABI LLVMTypeRef LLVMHexFP32TypeInContext(LLVMContextRef C);
+
+/**
+ * Obtain a 64 Hex float floating point type (IBM) from a context.
+ */
+LLVM_C_ABI LLVMTypeRef LLVMHexFP64TypeInContext(LLVMContextRef C);
+
+/**
+ * Obtain a 128-bit Hex float floating point type (IBM) from a context.
+ */
+LLVM_C_ABI LLVMTypeRef LLVMHexFP128TypeInContext(LLVMContextRef C);
 
 /**
  * Obtain a floating point type from the global context.
