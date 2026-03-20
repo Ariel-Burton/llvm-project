@@ -400,6 +400,9 @@ Constant *Constant::getNullValue(Type *Ty) {
   case Type::X86_FP80TyID:
   case Type::FP128TyID:
   case Type::PPC_FP128TyID:
+  case Type::Hex_FP32TyID:
+  case Type::Hex_FP64TyID:
+  case Type::Hex_FP128TyID:
     return ConstantFP::get(Ty->getContext(),
                            APFloat::getZero(Ty->getFltSemantics()));
   case Type::PointerTyID:

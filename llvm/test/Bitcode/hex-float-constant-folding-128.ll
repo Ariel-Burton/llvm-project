@@ -29,7 +29,7 @@ define dso_local hex_fp128 @one() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @one()
-; CHECK-NEXT:   ret hex_fp128 0xS41100000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xS41100000000000003300000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -42,7 +42,7 @@ define dso_local hex_fp128 @quarter() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @quarter()
-; CHECK-NEXT:   ret hex_fp128 0xS40400000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xS40400000000000003200000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -55,7 +55,7 @@ define dso_local hex_fp128 @three_quarters() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @three_quarters()
-; CHECK-NEXT:   ret hex_fp128 0xS40C00000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xS40C00000000000003200000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -68,7 +68,7 @@ define dso_local hex_fp128 @minus_quarter() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @minus_quarter()
-; CHECK-NEXT:   ret hex_fp128 0xSC0400000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xSC040000000000000B200000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -81,7 +81,7 @@ define dso_local hex_fp128 @minus_four() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @minus_four()
-; CHECK-NEXT:   ret hex_fp128 0xSC1400000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xSC140000000000000B300000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -95,7 +95,7 @@ define dso_local hex_fp128 @sixteenth() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @sixteenth()
-; CHECK-NEXT:   ret hex_fp128 0xS40100000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xS40100000000000003200000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -109,7 +109,7 @@ define dso_local hex_fp128 @minus_eighth() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @minus_eighth()
-; CHECK-NEXT:   ret hex_fp128 0xSC0200000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xSC020000000000000B200000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -121,7 +121,7 @@ define dso_local hex_fp128 @sixty_fourth() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @sixty_fourth()
-; CHECK-NEXT:   ret hex_fp128 0xS3F400000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xS3F400000000000003100000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -134,7 +134,7 @@ define dso_local hex_fp128 @three_and_three_quarters() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @three_and_three_quarters()
-; CHECK-NEXT:   ret hex_fp128 0xS413C0000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xS413C0000000000003300000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -148,7 +148,7 @@ define dso_local hex_fp128 @minus_one() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @minus_one()
-; CHECK-NEXT:   ret hex_fp128 0xSC1100000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xSC110000000000000B300000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -161,7 +161,7 @@ define dso_local hex_fp128 @minus_seventeen() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @minus_seventeen()
-; CHECK-NEXT:   ret hex_fp128 0xSC2110000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xSC211000000000000B400000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -174,7 +174,7 @@ define dso_local hex_fp128 @two_fifty_six() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @two_fifty_six()
-; CHECK-NEXT:   ret hex_fp128 0xS43100000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xS43100000000000003500000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -187,7 +187,7 @@ define dso_local hex_fp128 @minus_sixty_four() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @minus_sixty_four()
-; CHECK-NEXT:   ret hex_fp128 0xSC2400000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xSC240000000000000B400000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -200,6 +200,6 @@ define dso_local hex_fp128 @minus_sixty_three() #0 {
 }
 
 ; CHECK:      define dso_local noundef hex_fp128 @minus_sixty_three()
-; CHECK-NEXT:   ret hex_fp128 0xSC23F0000000000000000000000000000
+; CHECK-NEXT:   ret hex_fp128 0xSC23F000000000000B400000000000000
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

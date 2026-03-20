@@ -26,9 +26,9 @@
 @quarter = dso_local global hex_fp32 2.500000e-01, align 4
 ; CHECK: @quarter = dso_local global hex_fp32 0xS40400000, align 4
 
-;@eighth = dso_local global hex_fp64 1.250000e-01, align 4
+@eighth = dso_local global hex_fp64 1.250000e-01, align 4
 ; CHECK: @eighth = dso_local global hex_fp64 0xS4020000000000000, align 4
 
 @sixteenth = dso_local global hex_fp128 6.250000e-02, align 4
-; CHECK: @sixteenth = dso_local global hex_fp128 0xS40100000000000000000000000000000, align 4
+; CHECK: @sixteenth = dso_local global hex_fp128 0xS40100000000000003200000000000000, align 4
 

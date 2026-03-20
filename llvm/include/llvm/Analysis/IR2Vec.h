@@ -482,7 +482,7 @@ private:
 
   /// Every known TypeID defined in llvm/IR/Type.h is expected to have a
   /// corresponding mapping here in the same order as enum Type::TypeID.
-  static constexpr std::array<CanonicalTypeID, MaxTypeIDs> TypeIDMapping = {{
+  static constexpr std::array TypeIDMapping = {
       CanonicalTypeID::FloatTy,    // HalfTyID = 0
       CanonicalTypeID::FloatTy,    // BFloatTyID
       CanonicalTypeID::FloatTy,    // FloatTyID
@@ -490,6 +490,9 @@ private:
       CanonicalTypeID::FloatTy,    // X86_FP80TyID
       CanonicalTypeID::FloatTy,    // FP128TyID
       CanonicalTypeID::FloatTy,    // PPC_FP128TyID
+      CanonicalTypeID::FloatTy,    // Hex_FP32TyID
+      CanonicalTypeID::FloatTy,    // Hex_FP64TyID
+      CanonicalTypeID::FloatTy,    // Hex_FP128TyID
       CanonicalTypeID::VoidTy,     // VoidTyID
       CanonicalTypeID::LabelTy,    // LabelTyID
       CanonicalTypeID::MetadataTy, // MetadataTyID
@@ -505,7 +508,7 @@ private:
       CanonicalTypeID::VectorTy,   // ScalableVectorTyID
       CanonicalTypeID::PointerTy,  // TypedPointerTyID
       CanonicalTypeID::UnknownTy   // TargetExtTyID
-  }};
+  };
   static_assert(TypeIDMapping.size() == MaxTypeIDs,
                 "TypeIDMapping must cover all Type::TypeID values");
 

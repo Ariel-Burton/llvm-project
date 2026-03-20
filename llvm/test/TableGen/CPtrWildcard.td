@@ -1,4 +1,4 @@
-// RUN: llvm-tblgen -gen-dag-isel -I %p/../../include %s -o - | FileCheck %s
+// RUN: llvm-tblgen -gen-dag-isel -I %p/../../include %s -o - | tee /home/ariel/2026-03 | FileCheck %s
 
 // Create an intrinsic that uses cPTR to overload on capability pointer types,
 // and verify that we can match it correct in SelectionDAG.
@@ -8,13 +8,13 @@
 // CHECK-NEXT:/*     3*/ OPC_CheckChild0Integer, [[#]],
 // CHECK-NEXT:/*     5*/ OPC_RecordChild1, // #0 = $src
 // CHECK-NEXT:/*     6*/ OPC_Scope /*2 children */, 9, // ->17
-// CHECK-NEXT:/*     8*/  OPC_CheckChild1Type, /*MVT::c64*/4|128,2/*260*/,
+// CHECK-NEXT:/*     8*/  OPC_CheckChild1Type, /*MVT::c64*/7|128,2/*263*/,
 // CHECK-NEXT:/*    11*/  OPC_MorphNodeTo1None, TARGET_VAL(MyTarget::C64_TO_I64),
 // CHECK-NEXT:                MVT::i64, 1/*#Ops*/, /*OperandList*/0, // Ops = #0
 // CHECK-NEXT:            // Src: (intrinsic_wo_chain:{ *:[i64] } [[#]]:{ *:[iPTR] }, c64:{ *:[c64] }:$src) - Complexity = 8
 // CHECK-NEXT:            // Dst: (C64_TO_I64:{ *:[i64] } ?:{ *:[c64] }:$src)
 // CHECK-NEXT:/*    17*/ /*Scope*/ 9, // ->27
-// CHECK-NEXT:/*    18*/  OPC_CheckChild1Type, /*MVT::c128*/5|128,2/*261*/,
+// CHECK-NEXT:/*    18*/  OPC_CheckChild1Type, /*MVT::c128*/8|128,2/*264*/,
 // CHECK-NEXT:/*    21*/  OPC_MorphNodeTo1None, TARGET_VAL(MyTarget::C128_TO_I64),
 // CHECK-NEXT:                MVT::i64, 1/*#Ops*/, /*OperandList*/0, // Ops = #0
 // CHECK-NEXT:            // Src: (intrinsic_wo_chain:{ *:[i64] } [[#]]:{ *:[iPTR] }, c128:{ *:[c128] }:$src) - Complexity = 8
